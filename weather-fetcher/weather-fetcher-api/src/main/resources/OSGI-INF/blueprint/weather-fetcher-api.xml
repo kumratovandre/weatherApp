@@ -1,0 +1,15 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
+           https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <bean id="weatherFetcherResourceImpl" class="org.weather.fetcher.api.WeatherFetcherResourceImpl"/>
+
+    <jaxrs:server address="/weather" id="weatherFetcherResource">
+        <jaxrs:serviceBeans>
+            <ref component-id="weatherFetcherResourceImpl"/>
+        </jaxrs:serviceBeans>
+    </jaxrs:server>
+
+</blueprint>

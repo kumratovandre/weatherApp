@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="weather-fetcher-features">
+
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/3.5.3/xml/features</repository>
+
+    <feature name="weather-fetcher-api" version="${project.version}">
+        <feature>aries-blueprint</feature>
+        <feature>weather-fetcher-persistence</feature>
+<!--        <requirement>-->
+<!--            osgi.service;effective:=active;filter:=(objectClass=org.osgi.service.http.HttpService)-->
+<!--        </requirement>-->
+<!--        <feature>http</feature>-->
+<!--        <feature>http-whiteboard</feature>-->
+        <feature>cxf</feature>
+        <bundle>mvn:org.json/json/20220320</bundle>
+        <bundle>mvn:org.weather/weather-fetcher-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="weather-fetcher-persistence" version="${project.version}">
+        <bundle>mvn:org.mariadb.jdbc/mariadb-java-client/${mariadb-java-client.version}</bundle>
+        <feature dependency="true">aries-blueprint</feature>
+        <feature>transaction</feature>
+        <feature>jndi</feature>
+        <feature>jdbc</feature>
+        <feature version="[2,3)">jpa</feature>
+        <feature version="[5,6)">hibernate</feature>
+        <feature>scr</feature>
+        <feature>weather-fetcher-datasource</feature>
+        <feature>weather-fetcher-repo</feature>
+    </feature>
+
+    <feature name="weather-fetcher-datasource" version="${project.version}">
+        <bundle>mvn:org.weather/weather-fetcher-datasource/${project.version}</bundle>
+    </feature>
+
+    <feature name="weather-fetcher-repo" version="${project.version}">
+        <bundle>mvn:org.weather/weather-fetcher-repo/${project.version}</bundle>
+    </feature>
+
+</features>

@@ -1,0 +1,22 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v2.0.0"
+           xsi:schemaLocation="
+            http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0
+            http://www.w3.org/2001/XMLSchema-instance https://www.w3.org/2001/XMLSchema-instance">
+
+    <tx:enable/>
+
+    <bean id="weatherDataSource" class="org.mariadb.jdbc.MariaDbDataSource">
+        <property name="url" value="jdbc:mariadb://localhost:3306/weatherDb" />
+        <property name="user" value="root" />
+        <property name="password" value="pazz" />
+    </bean>
+
+    <service ref="weatherDataSource" interface="javax.sql.DataSource">
+        <service-properties>
+            <entry key="osgi.jndi.service.name" value="weatherDs" />
+        </service-properties>
+    </service>
+
+</blueprint>
