@@ -16,6 +16,7 @@ public class WeatherStatRepoImpl implements WeatherStatRepo {
     @PersistenceContext(unitName = "weatherPU")
     private EntityManager em;
 
+    @Override
     public void save(WeatherStat ws) {
         em.persist(ws);
     }

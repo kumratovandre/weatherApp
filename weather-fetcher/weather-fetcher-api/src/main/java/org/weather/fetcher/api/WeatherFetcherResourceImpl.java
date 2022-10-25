@@ -27,8 +27,8 @@ public class WeatherFetcherResourceImpl implements WeatherFetcherResource {
             parsedResponse = WeatherUtils.parseResponse(response.body(), country, city);
             new WeatherStatRepoImpl().save(parsedResponse);
         } catch (Exception ex) {
-            status = "beda";
-            LOGGER.error("Error fetching results: ", ex);
+            status = "Something else went wrong";
+            LOGGER.error("Something else went wrong: ", ex);
         }
         return status;
 

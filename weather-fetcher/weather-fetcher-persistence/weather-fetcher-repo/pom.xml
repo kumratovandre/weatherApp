@@ -6,7 +6,7 @@
         <artifactId>weather-fetcher-persistence</artifactId>
         <groupId>org.weather</groupId>
         <version>1.0-SNAPSHOT</version>
-<!--        <relativePath>../pom.xml</relativePath>-->
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -32,8 +32,23 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>6.0.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>javax.transaction-api</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 
@@ -44,12 +59,12 @@
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
-                        <Meta-persistence>META-INF/persistence.xml</Meta-persistence>
+                        <Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
                         <Export-Package>org.weather.fetcher.repo.*</Export-Package>
                         <Import-Package>
                             org.hibernate.proxy,
                             javassist.util.proxy,
-                            *
+                            javax.persistence.*
                         </Import-Package>
                     </instructions>
                 </configuration>

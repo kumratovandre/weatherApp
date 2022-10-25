@@ -1,5 +1,6 @@
 package org.weather.fetcher.api.utils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.weather.fetcher.repo.model.WeatherStat;
 
@@ -19,7 +20,9 @@ public class WeatherUtils {
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
     }
-    public static WeatherStat parseResponse(String stringResult, String country, String city) {
+
+    public static WeatherStat parseResponse(String stringResult, String country, String city)
+            throws JSONException {
         JSONObject responseObject = new JSONObject(stringResult);
         JSONObject currentWeather = (JSONObject) responseObject.getJSONObject("locations")
                 .getJSONObject(String.format("%s,%s", country, city)).getJSONArray("values").get(0);

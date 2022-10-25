@@ -13,8 +13,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class WeatherStat implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String country;
     private String city;
     @Column(name = "RESULT_DATE")
