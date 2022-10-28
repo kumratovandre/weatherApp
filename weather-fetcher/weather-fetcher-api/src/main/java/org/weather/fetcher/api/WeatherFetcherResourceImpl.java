@@ -18,13 +18,13 @@ public class WeatherFetcherResourceImpl implements WeatherFetcherResource {
 
     public String getWeatherByCountryCity(String country, String city) {
         String weatherApiUrl = String.format(API_URL, country, city);
+        String status = "success";
+
         HttpRequest request = WeatherUtils.prepareRequest(weatherApiUrl);
 
-        String status = "success";
-        WeatherStat parsedResponse = null;
         try {
             HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            parsedResponse = WeatherUtils.parseResponse(response.body(), country, city);
+            WeatherStat parsedResponse = WeatherUtils.parseResponse(response.body(), country, city);
             new WeatherStatRepoImpl().save(parsedResponse);
         } catch (Exception ex) {
             status = "Something else went wrong";

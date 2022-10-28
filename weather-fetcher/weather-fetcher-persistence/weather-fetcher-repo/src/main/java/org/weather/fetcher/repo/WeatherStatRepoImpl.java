@@ -1,6 +1,6 @@
 package org.weather.fetcher.repo;
 
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 import org.weather.fetcher.repo.model.WeatherStat;
 
@@ -8,11 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-@NoArgsConstructor
 @Transactional
 public class WeatherStatRepoImpl implements WeatherStatRepo {
 
-    @Setter
+    @Getter
     @PersistenceContext(unitName = "weatherPU")
     private EntityManager em;
 
