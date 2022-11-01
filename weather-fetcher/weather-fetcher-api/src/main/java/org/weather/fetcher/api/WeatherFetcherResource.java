@@ -12,6 +12,9 @@ public interface WeatherFetcherResource {
     @GET
     @Path("/{country}/{city}")
     @Produces(MediaType.APPLICATION_JSON)
-    String getWeatherByCountryCity(@PathParam("country") String country, @PathParam("city") String city);
+    String saveExternalWeatherStats(@PathParam("country") String country, @PathParam("city") String city);
+
+    @GET
+    String getAllStats();
 
 }

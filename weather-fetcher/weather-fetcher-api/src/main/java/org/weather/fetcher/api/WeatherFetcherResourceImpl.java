@@ -1,36 +1,45 @@
 package org.weather.fetcher.api;
 
+import lombok.RequiredArgsConstructor;
+import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.weather.fetcher.api.utils.WeatherUtils;
-import org.weather.fetcher.repo.WeatherStatRepoImpl;
+import org.weather.fetcher.repo.WeatherStatRepo;
 import org.weather.fetcher.repo.model.WeatherStat;
 
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
+@RequiredArgsConstructor
 public class WeatherFetcherResourceImpl implements WeatherFetcherResource {
 
+    private final WeatherStatRepo repository;
+    private final ExternalWeatherApiResource externalWeatherApiResource;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherFetcherResourceImpl.class);
-    private static final String API_URL = "https://visual-crossing-weather.p.rapidapi.com/forecast" +
-            "?aggregateHours=24&location=%s,%s&contentType=json&unitGroup=uk&forecastDays=1";
+    private static final String HEADER_KEY = "50cca8db1cmsh2de567f78bb86e7p1f124ejsn08b9f827c630";
+    private static final String HEADER_HOST = "visual-crossing-weather.p.rapidapi.com";
 
-    public String getWeatherByCountryCity(String country, String city) {
-        String weatherApiUrl = String.format(API_URL, country, city);
-        String status = "success";
+    @Override
+    public String saveExternalWeatherStats(String country, String city) {
+        String location = String.format("%s,%s", country, city);
 
-        HttpRequest request = WeatherUtils.prepareRequest(weatherApiUrl);
-
+        WeatherStat externalParsedStat = externalWeatherApiResource.getWeather(
+                HEADER_KEY,
+                HEADER_HOST,
+                24,
+                location,
+                "json",
+                "uk",
+                1
+        );
         try {
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            WeatherStat parsedResponse = WeatherUtils.parseResponse(response.body(), country, city);
-            new WeatherStatRepoImpl().save(parsedResponse);
+            repository.save(externalParsedStat);
         } catch (Exception ex) {
-            status = "Something else went wrong";
-            LOGGER.error("Something else went wrong: ", ex);
+            LOGGER.error("Error saving weather result", ex);
         }
-        return status;
+        return externalParsedStat.toString();
+    }
 
+    @Override
+    public String getAllStats() {
+        return repository.getAllStats().toString();
     }
 }

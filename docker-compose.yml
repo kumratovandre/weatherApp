@@ -1,0 +1,33 @@
+version: "2.1"
+services:
+  db:
+    image: mariadb
+    restart: always
+    container_name: weather-db
+    environment:
+      MARIADB_ROOT_PASSWORD: pazz
+      MARIADB_USER: weather
+      MARIADB_PASSWORD: weatherPazz
+    volumes:
+      - ./scripts/weatherDbInit.sql:/docker-entrypoint-initdb.d/0_init.sql
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+  api:
+    depends_on:
+      - db
+    build: ./weather-fetcher
+    container_name: weather-api
+    expose:
+      - "1099"
+      - "44444"
+      - "8101"
+      - "8181"
+    ports:
+      - "8101:8101"
+      - "1099:1099"
+      - "44444:44444"
+      - "8181:8181"
+    stdin_open: true
+#    tty: true

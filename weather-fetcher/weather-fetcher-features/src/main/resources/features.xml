@@ -11,7 +11,7 @@
         <feature>transaction</feature>
         <feature>jpa</feature>
         <feature>hibernate-orm</feature>
-        <bundle>mvn:org.json/json/20220320</bundle>
+        <bundle>mvn:com.google.code.gson/gson/2.9.0</bundle>
         <bundle>wrap:mvn:org.mariadb.jdbc/mariadb-java-client/${mariadb-java-client.version}</bundle>
         <bundle>mvn:org.weather/weather-fetcher-datasource/${project.version}</bundle>
         <bundle>mvn:org.weather/weather-fetcher-repo/${project.version}</bundle>

@@ -6,6 +6,7 @@
 
     <bean id="weatherDataSource" class="org.mariadb.jdbc.MariaDbDataSource">
         <property name="url" value="jdbc:mariadb://localhost:3306/weatherDb" />
+<!--        <property name="url" value="jdbc:mariadb://weather-db:3306/weatherDb" />-->
         <property name="user" value="root" />
         <property name="password" value="pazz" />
     </bean>
