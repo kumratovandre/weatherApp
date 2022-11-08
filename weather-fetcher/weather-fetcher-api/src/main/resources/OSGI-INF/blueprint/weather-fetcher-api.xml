@@ -1,6 +1,6 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs"
+           xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs" xmlns:util="http://www.w3.org/2001/XMLSchema"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0
            https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
@@ -8,9 +8,8 @@
 
     <bean id="externalApiBean" class="org.weather.fetcher.api.ExternalApiFactory"
           factory-method="createExternalWeatherApi">
-        <argument value="https://visual-crossing-weather.p.rapidapi.com"/>
+        <argument value="https://api.openweathermap.org/data/2.5"/>
     </bean>
-
 
     <bean id="weatherFetcherResourceImpl" class="org.weather.fetcher.api.WeatherFetcherResourceImpl">
         <argument ref="repository"/>
@@ -21,6 +20,9 @@
         <jaxrs:serviceBeans>
             <ref component-id="weatherFetcherResourceImpl"/>
         </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+        </jaxrs:providers>
     </jaxrs:server>
 
 </blueprint>

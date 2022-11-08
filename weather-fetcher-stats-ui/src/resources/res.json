@@ -1,0 +1,40 @@
+{
+  "_embedded" : {
+    "stats" : [ {
+      "country" : "ukraine",
+      "city" : "poltava",
+      "date" : "2022-10-28",
+      "overall" : "Partially cloudy",
+      "temperature" : 9.6,
+      "scale" : "CELSIUS",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/stats/1"
+        },
+        "weatherStat" : {
+          "href" : "http://localhost:8080/stats/1"
+        }
+      }
+    }, {
+      "country" : "ukraine",
+      "city" : "poltava",
+      "date" : "2022-11-02",
+      "overall" : "Clouds",
+      "temperature" : 12.11,
+      "scale" : "METRIC",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/stats/8"
+        },
+        "weatherStat" : {
+          "href" : "http://localhost:8080/stats/8"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/stats/search/findByCity?city=Poltava"
+    }
+  }
+}

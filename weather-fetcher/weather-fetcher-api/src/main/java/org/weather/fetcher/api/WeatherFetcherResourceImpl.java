@@ -1,11 +1,13 @@
 package org.weather.fetcher.api;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.cxf.jaxrs.client.JAXRSClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.weather.fetcher.api.model.ExternalResponseDto;
 import org.weather.fetcher.repo.WeatherStatRepo;
 import org.weather.fetcher.repo.model.WeatherStat;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 public class WeatherFetcherResourceImpl implements WeatherFetcherResource {
@@ -14,28 +16,30 @@ public class WeatherFetcherResourceImpl implements WeatherFetcherResource {
     private final ExternalWeatherApiResource externalWeatherApiResource;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherFetcherResourceImpl.class);
-    private static final String HEADER_KEY = "50cca8db1cmsh2de567f78bb86e7p1f124ejsn08b9f827c630";
-    private static final String HEADER_HOST = "visual-crossing-weather.p.rapidapi.com";
+    private static final String API_KEY = "50e633653c83b8b7fe03b924b9e3a6ed";
 
     @Override
     public String saveExternalWeatherStats(String country, String city) {
         String location = String.format("%s,%s", country, city);
 
-        WeatherStat externalParsedStat = externalWeatherApiResource.getWeather(
-                HEADER_KEY,
-                HEADER_HOST,
-                24,
-                location,
-                "json",
-                "uk",
-                1
+        ExternalResponseDto response = externalWeatherApiResource.getWeather(location, API_KEY, MeasureUnits.METRIC);
+
+        WeatherStat weatherStat = new WeatherStat(
+                null,
+                country,
+                city,
+                LocalDate.now(),
+                response.getConditions()[0].getOverall(),
+                response.getMainMeasures().getTemp(),
+                MeasureUnits.METRIC.name()
         );
+
         try {
-            repository.save(externalParsedStat);
+            repository.save(weatherStat);
         } catch (Exception ex) {
             LOGGER.error("Error saving weather result", ex);
         }
-        return externalParsedStat.toString();
+        return weatherStat.toString();
     }
 
     @Override

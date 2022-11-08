@@ -1,0 +1,50 @@
+.App, body {
+  background-color: #282c34;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #c2ebf5;
+}
+
+header {
+  min-height: 25vh;
+}
+
+table {
+  border: solid #0f5252;
+  background: #c2ebf5;
+  color: rgb(45, 44, 44);
+}
+
+thead {
+  font-weight : bold;
+  background: #40d4f5;
+}
+
+button {
+  background-color: #40d4f5;
+  font-size: calc(10px + 2vmin);
+}
+
+input {
+  font-size: calc(10px + 2vmin);
+}
+
+
+

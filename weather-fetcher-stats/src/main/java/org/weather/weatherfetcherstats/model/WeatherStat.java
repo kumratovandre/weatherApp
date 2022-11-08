@@ -1,10 +1,12 @@
-package org.weather.fetcher.repo.model;
+package org.weather.weatherfetcherstats.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -15,6 +17,8 @@ import java.time.LocalDate;
 @Table(name = "weather_stat")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class WeatherStat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +35,4 @@ public class WeatherStat {
     @Column(name = "weather_scale")
     private String scale;
 
-    @Override
-    public String toString() {
-        return "WeatherResult{" +
-                "id='" + resultId + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", resultDate=" + date +
-                ", weatherOverall='" + overall + '\'' +
-                ", weatherTemperature='" + temperature + '\'' +
-                ", weatherScale='" + scale + '\'' +
-                '}';
-    }
 }

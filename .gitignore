@@ -1,2 +1,3 @@
 .idea
 **/target/
+/weather-fetcher-stats-ui/node_modules
