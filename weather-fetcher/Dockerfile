@@ -1,5 +1,5 @@
 FROM maven:3.6.0-jdk-11-slim
-ENV KARAF_VERSION=4.3.8
+ENV KARAF_VERSION=4.3.9
 
 COPY . /home/app/
 RUN mvn -f /home/app/pom.xml clean install
@@ -11,4 +11,4 @@ RUN chmod 755 /opt
 COPY org.apache.karaf.features.cfg /opt/apache-karaf-${KARAF_VERSION}/etc
 
 EXPOSE 1099 8101 44444 8181
-CMD ["/opt/apache-karaf-4.3.8/bin/karaf"]
+CMD /opt/apache-karaf-${KARAF_VERSION}/bin/karaf

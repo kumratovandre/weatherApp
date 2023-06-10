@@ -1,24 +1,24 @@
 version: "2.1"
 services:
-  db:
-    image: mariadb
-    restart: always
-    container_name: weather-db
-    environment:
-      MYSQL_DATABASE: weatherDb
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./scripts/0_tables.sql:/docker-entrypoint-initdb.d/0_tables.sql
-      - ./scripts/1_data.sql:/docker-entrypoint-initdb.d/1_data.sql
-    expose:
-      - "3306"
-    ports:
-      - "3307:3306"
+#  db:
+#    image: mariadb:10.4
+#    restart: always
+#    container_name: weather-db
+#    environment:
+#      MYSQL_DATABASE: weatherDb
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: root
+#      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./scripts/0_tables.sql:/docker-entrypoint-initdb.d/0_tables.sql
+#      - ./scripts/1_data.sql:/docker-entrypoint-initdb.d/1_data.sql
+#    expose:
+#      - "3306"
+#    ports:
+#      - "3307:3306"
   api:
-    depends_on:
-      - db
+#    depends_on:
+#      - db
     build: ./weather-fetcher
     container_name: weather-api
     expose:
